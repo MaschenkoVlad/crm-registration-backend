@@ -12,7 +12,6 @@ const User = require('../models/user');
 router.post('/register', (req, res)=>{
   
     const { errors, isValid } = validateInput(req.body);
-
     if (!isValid) {
         return res.status(400).json(errors);
     }
@@ -39,7 +38,6 @@ router.post('/register', (req, res)=>{
             })
         }
     })
-
 })
 
 module.exports = router;
