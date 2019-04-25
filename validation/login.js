@@ -24,4 +24,3 @@ validateLogin = (data) => {
 }    
 
 module.exports = validateLogin;
-//done
