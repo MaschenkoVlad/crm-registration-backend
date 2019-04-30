@@ -1,12 +1,12 @@
 const Validator = require('validator')
 const isEmpty = require('./validation')
 
-validateInput = (data) => {
+validateRegister = (data) => {
     let errors = {};
     data.name = !isEmpty(data.name) ? data.name : '';
     data.email = !isEmpty(data.email) ? data.email : '';
     data.password = !isEmpty(data.password) ? data.password : '';
-    data.password_confirm = !isEmpty(data.password_confirm) ? data.password_confirm : '';
+    data.passwordConfirm = !isEmpty(data.passwordConfirm) ? data.passwordConfirm : '';
 
     if(Validator.isEmpty(data.name)){
         errors.name = 'Name is required';
@@ -20,11 +20,11 @@ validateInput = (data) => {
     if(Validator.isEmpty(data.password)){
         errors.password = 'Password is required';
     }
-    if(Validator.isEmpty(data.password_confirm )){
-        errors.password_confirm  = 'Password is required';
+    if(Validator.isEmpty(data.passwordConfirm )){
+        errors.passwordConfirm  = 'Password is required';
     }
-    if(!Validator.equals(data.password, data.password_confirm)){
-        errors.password_confirm  = 'Password and Confirm Password must be match';
+    if(!Validator.equals(data.password, data.passwordConfirm)){
+        errors.passwordConfirm  = 'Password and Confirm Password must be match';
     }
 
     return {
@@ -33,4 +33,4 @@ validateInput = (data) => {
     }
 }    
 
-module.exports = validateInput;
+module.exports = validateRegister;
