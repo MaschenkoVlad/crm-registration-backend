@@ -27,9 +27,9 @@ UserSchema.methods.generateHash = ( password ) => {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
 }
 
-UserSchema.methods.validPassword = ( password ) => {
-    return bcrypt.compareSync(password, this.password);
-}
+UserSchema.methods.comparePassword = function(password, callback) {
+    return callback(null, bcrypt.compareSync(password, this.password));
+};
 
 let User = mongoose.model('User', UserSchema);
 

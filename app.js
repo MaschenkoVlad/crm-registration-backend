@@ -24,6 +24,7 @@ connection.once('open', () => {
     console.log('MongoDB database connection...')
 });
 
+//get data
 userRoutes.route('/').get((req, res) => {
     console.log('Get data: ', req)
     User.find({}, (err, userList) => {
@@ -92,21 +93,25 @@ userRoutes.route('/login').post((req, res) => {
                     email: 'User not found'
                 });
             }
-            if ( !user.validPassword(password) ) {
-                return res.status(400).json({
-                    password: 'Incorrect Password'
-                });
-            }
-            const UserSession = new UserSession({
+            user.comparePassword(password, (error, match) => {
+                if(!match) {
+                    return res.status(400).json({
+                        password: 'Incorrect Password'
+                    });
+                } else {
+                    console.log('Correct Password')
+                }
+            });
+            const newUserSession = new UserSession({
                 userId: user._id
             })
-            console.log(UserSession);
-            UserSession.save((err, UserSession) => {
+            console.log(newUserSession);
+            newUserSession.save((err, newUserSession) => {
                 if (err) {
                     console.log('error login user: ', err)
                     return res.json(err)
                 } else {
-                    res.json(UserSession);
+                    res.json(newUserSession);
                 }
             });
         });
